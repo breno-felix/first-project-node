@@ -27,13 +27,22 @@ app.get("/users", (req, res) => {
 }); // visualiza dados do servidor
 
 app.post("/users", (req, res) => {
-  const { name, age } = req.body;
+  try {
+    const { name, age } = req.body;
 
-  const user = { id: uuid.v4(), name, age };
+    //if (age < 18) throw new Error("Only allowed users over 18 years old"); // cria um novo erro
 
-  users.push(user);
+    const user = { id: uuid.v4(), name, age };
 
-  return res.status(201).json(user);
+    users.push(user);
+
+    return res.status(201).json(user);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+    //return res.status(400).json({ error: err.message });
+  } finally {
+    console.log("Terminou tudo");
+  } // finally serve para executar um código após a execução do try catch (opcional)
 }); // envia dados ao servidor
 
 app.put("/users/:id", checkUserId, (req, res) => {
