@@ -1,9 +1,11 @@
 const express = require("express");
 const uuid = require("uuid"); // biblioteca para tratar Id
+const cors = require("cors"); // biblioteca para liberar a API
 
-const port = 3000;
+const port = 3001;
 const app = express(); // para não precisar ficar chamando a função express()
 app.use(express.json()); // serve para informar que toda aplicação usa json
+app.use(cors()); // da forma como está todos terão acesso a essa API, para evitar isso precisaria informar ao cors quais sites poderiam ter acesso.
 
 const users = [];
 
